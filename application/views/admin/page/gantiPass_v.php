@@ -82,7 +82,7 @@ var Script = function() {
             <header class="panel-heading">
                 Ganti Password
             </header>
-            <div class="panel-body" style="min-height:500px;">
+            <div class="panel-body">
                 <form class="form-horizontal" role="form" method="post" id="form">
                     <div class="form-group">
                         <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">Username</label>

@@ -9,8 +9,7 @@ $sesi =$this->session->userdata('login');
             </header>
             <div class="panel-body">
                 <div class="bio-graph-heading">
-                    Selamat Datang <?= $sesi['level']?> <?= $sesi['user']?> di Website Dinas Arsip dan Perpustakaan Kota
-                    Kediri
+                    Selamat Datang <?= $sesi['level']?> <?= $sesi['user']?>
                 </div>
             </div>
             </div>
