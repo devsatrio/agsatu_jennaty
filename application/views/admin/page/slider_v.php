@@ -30,7 +30,8 @@
                             <th>No</th>
                             <th>Keterangan</th>
                             <th>Gambar</th>
-                            <th>Aksi</th>
+                            <th class="text-center">Tampil Pada</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,9 +42,11 @@
                             <td><?= $no++ ?></td>
                             <td><?= $data->keterangan?></td>
                             <td><?= $data->url_gambar?></td>
-                            <td>
+                            <td class="text-center"><?= ($data->website==0) ? "Website Haji":"Website Travel";?></td>
+                            <td class="text-center">
+                                <a href="<?php echo base_url('admin/slider/edit/'.$data->id)?>" class="btn btn-warning">Edit</a>
                                 <a href="<?php echo base_url('admin/slider/hapus/'.$data->id)?>"
-                                    onclick="return confirm('Hapus Data ?');" class="btn btn-danger btn-xs">hapus</a>
+                                    onclick="return confirm('Hapus Data ?');" class="btn btn-danger">hapus</a>
                             </td>
                         </tr>
                         <?php } ?>

@@ -3,11 +3,11 @@ $(document).ready(function() {
     $('.tombol-edit').click(function() {
         var id = $(this).data('kode');
         var nama = $(this).data('nama');
-        var bentuk = $(this).data('bentuk');
+        var halaman = $(this).data('halaman');
         var website = $(this).data('website');
-        $('#nama_halaman').val(nama);
-        $('#id_halaman').val(id);
-        $('#bentuk').val(bentuk);
+        $('#nama').val(nama);
+        $('#kode').val(id);
+        $('#halaman').val(halaman);
         $('#website').val(website);
         $('#edit').modal('show');
     });

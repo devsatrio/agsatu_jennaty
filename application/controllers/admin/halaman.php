@@ -21,7 +21,9 @@ class Halaman extends CI_Controller{
 	function do_tambah_halaman(){
 		$data_insert = array(
 			'nama_halaman'=>$this->input->post('nama_halaman'),
-			'bentuk_halaman'=>$this->input->post('bentuk'));
+			'bentuk_halaman'=>$this->input->post('bentuk'),
+			'website'=>$this->input->post('website'),
+		);
 		$this->db->insert('halaman',$data_insert);
 		$data_insert['id'] = $this->db->insert_id();
 		$data_insert['bentuk'] = $data_insert['bentuk_halaman']==1 ? "Tunggal":"Jamak";
@@ -43,7 +45,8 @@ class Halaman extends CI_Controller{
 	function edit_halaman(){
 		$data=array(
 			'nama_halaman'=>$this->input->post('nama_halaman'),
-			'bentuk_halaman'=>$this->input->post('bentuk')
+			'bentuk_halaman'=>$this->input->post('bentuk'),
+			'website'=>$this->input->post('website'),
 		);
 		$this->db->where('id_halaman',$this->input->post('id_halaman'));
 		$this->db->update('halaman',$data);

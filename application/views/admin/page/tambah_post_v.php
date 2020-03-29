@@ -16,10 +16,9 @@
                         <div class="col-lg-6">
                             <label>Tanggal</label>
                             <input type="text" class="form-control default-date-picker" name="tanggal"
-                                value="<?php echo date('Y-m-d');?>" readonly/>
+                                value="<?php echo date('Y-m-d');?>" readonly />
                         </div>
                     </div>
-
                     <br>
                     <div class="row">
                         <div class="col-lg-6">
@@ -27,19 +26,19 @@
                             <select class="form-control" name="kategori">
                                 <?php
 								foreach($kategori as $kat){?>
-                                <option value="<?= $kat->id_kategori?>"><?= $kat->nama_kategori?></option>
+                                <option value="<?= $kat->id_kategori?>-<?= $kat->website?>"><?= $kat->nama_kategori?> - <?= ($kat->website==0) ? "Pada Website Haji":"Pada Website Travel";?></option>
                                 <?php }?>
                             </select>
                         </div>
                         <div class="col-lg-6">
                             <label>Gambar</label>
-                            <input type="file" class="form-control" name="gambar" accept="image/*" requred/>
+                            <input type="file" class="form-control" name="gambar" accept="image/*" requred />
                         </div>
                     </div>
                     <br>
                     <div class="form-group">
                         <label>Isi</label>
-                        <textarea class="form-control ckeditor" name="isi" rows="8"></textarea>
+                        <textarea class="form-control ckeditor" name="isi"></textarea>
                     </div>
                     <br>
                     <div class="form-group">

@@ -81,7 +81,7 @@
                                 </li>
                                 <?php 
                                     $urut=1;
-                                    $menu = $this->db->query("select * from menu LEFT JOIN halaman on halaman.id_halaman=menu.id_halaman order by menu.id")->result();
+                                    $menu = $this->db->query("select * from menu LEFT JOIN halaman on halaman.id_halaman=menu.id_halaman where menu.website='0' order by menu.id")->result();
 		
                                     foreach($menu as $menu){                    
                                         if($menu->id_halaman!=0)
@@ -91,7 +91,7 @@
                                 <li class="dropdown">
                                     <a href="<?= $link;?>"><?= $menu->nama_menu?></a>
                                     <?php 
-                                        $jumsubmenu = $this->db->query("select count(*) as total from submenu where id_menu='$menu->id'")->row();
+                                        $jumsubmenu = $this->db->query("select count(*) as total from submenu where id_menu='$menu->id' and website='0'")->row();
                                         if($jumsubmenu->total>0){
                                     ?>
                                     <ul>

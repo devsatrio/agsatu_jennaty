@@ -32,6 +32,7 @@
                                 <th>Judul</th>
                                 <th>Kategori</th>
                                 <th>Tanggal</th>
+                                <th class="text-center">Tampil Pada</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -44,6 +45,7 @@
                                 <td><?= $data->judul?></td>
                                 <td><?= $data->nama_kategori?></td>
                                 <td><?= $data->tanggal?></td>
+                                <td class="text-center"><?= ($data->website==0) ? "Website Haji":"Website Travel";?></td>
                                 <td class="text-center">
                                     <a href="<?= base_url("admin/post/edit")."/".$data->id_post?>"
                                         class="btn btn-warning">Edit</a>

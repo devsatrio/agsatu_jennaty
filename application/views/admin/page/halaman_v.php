@@ -31,6 +31,7 @@
                                 <th>No</th>
                                 <th>Nama Halaman</th>
                                 <th class="text-center">Bentuk Halaman</th>
+                                <th class="text-center">Tampil Pada</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -42,11 +43,13 @@
                                 <td><?= $no++ ?></td>
                                 <td><?= $hal->nama_halaman?></td>
                                 <td class="text-center"><?= ($hal->bentuk_halaman==1) ? "Tunggal":"Jamak";?></td>
+                                <td class="text-center"><?= ($hal->website==0) ? "Website Haji":"Website Travel";?></td>
                                 <td class="text-center">
                                     <button class="btn btn-warning tombol-edit"
                                         data-kode="<?php echo $hal->id_halaman;?>"
                                         data-nama="<?php echo $hal->nama_halaman;?>"
-                                        data-bentuk="<?php echo $hal->bentuk_halaman;?>">Edit</button>
+                                        data-bentuk="<?php echo $hal->bentuk_halaman;?>"
+                                        data-website="<?php echo $hal->website;?>">Edit</button>
                                     <a class="btn btn-primary"
                                         href="<?= $hal->bentuk_halaman==1 ? base_url("admin/halaman/edit_tunggal/".$hal->id_halaman) : base_url("admin/halaman/edit_jamak/".$hal->id_halaman)?>">Edit
                                         Artikel</a>
@@ -83,6 +86,13 @@
                                         <option value="2">Jamak</option>
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label>Ditampilkan Pada</label>
+                                    <select class="form-control" name="website">
+                                        <option value="0">Website Haji</option>
+                                        <option value="1">Website Travel</option>
+                                    </select>
+                                </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
@@ -111,6 +121,13 @@
                                     <select class="form-control" name="bentuk" id="bentuk">
                                         <option value="1">Tunggal</option>
                                         <option value="2">Jamak</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ditampilkan Pada</label>
+                                    <select class="form-control" name="website" id="website">
+                                        <option value="0">Website Haji</option>
+                                        <option value="1">Website Travel</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-success">Submit</button>

@@ -6,15 +6,15 @@
                 <h4 class="modal-title">Edit Menu</h4>
             </div>
             <div class="modal-body">
-                <form role="form" name="edit" method="post">
+                <form role="form" name="edit" action="<?php echo base_url('/admin/menu/edit_menu')?>" method="post">
                     <div class="form-group">
                         <label>Nama Menu</label>
-                        <input type="text" class="form-control" name="nama_menu">
-                        <input type="hidden" name="id_menu" />
+                        <input type="text" class="form-control" name="nama_menu" id="nama" required>
+                        <input type="hidden" name="id_menu" id="kode"/>
                     </div>
                     <div class="form-group">
                         <label>Halaman</label>
-                        <select class="form-control" name="halaman">
+                        <select class="form-control" name="halaman" id="halaman">
                             <option value="0">--Pilih Halaman Yang Dimasukkan--</option>
                             <?php
 													  	foreach($halaman as $hal){?>
@@ -22,7 +22,14 @@
                         </select>
                         * Boleh Tidak Diisi
                     </div>
-                    <button type="button" class="btn btn-default" onclick="submit_edit()">Submit</button>
+                    <div class="form-group">
+                        <label>Ditampilkan Pada</label>
+                        <select class="form-control" name="website" id="website">
+                            <option value="0">Website Haji</option>
+                            <option value="1">Website Travel</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
                 </form>
             </div>
         </div>
@@ -37,20 +44,29 @@
                 <h4 class="modal-title">Tambah Menu</h4>
             </div>
             <div class="modal-body">
-                <form role="form" name="tambah" method="post">
+                <form role="form" name="tambah" action="<?php echo base_url('/admin/menu/do_tambah_menu')?>"
+                    method="post">
                     <div class="form-group">
                         <label>Nama Menu</label>
-                        <input type="text" class="form-control" name="nama_menu" id="input_nama_menu">
+                        <input type="text" class="form-control" name="nama_menu" required>
                     </div>
                     <div class="form-group">
                         <label>Halaman</label>
-                        <select class="form-control" name="halaman" id="input_halaman">
+                        <select class="form-control" name="halaman">
                             <option value="0">--Pilih Halaman Yang Dimasukkan--</option>
                             <?php
-													  	foreach($halaman as $hal){?>
-                            <option value="<?= $hal->id_halaman?>"><?= $hal->nama_halaman?></option> <?php }?>
+							foreach($halaman as $hal){?>
+                            <option value="<?= $hal->id_halaman?>"><?= $hal->nama_halaman?></option>
+                            <?php }?>
                         </select>
-                        * Boleh Tidak Diisi
+                        <span class="help-text">* Boleh Tidak Diisi</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Ditampilkan Pada</label>
+                        <select class="form-control" name="website">
+                            <option value="0">Website Haji</option>
+                            <option value="1">Website Travel</option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
@@ -66,17 +82,34 @@
                 Menu
             </header>
             <div class="panel-body">
+                <?php
+                if ($this->session->flashdata('msg')=='h'){ ?>
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    Data Berhasil Dihapus.
+                </div>
+                <?php }else if($this->session->flashdata('msg')=='i'){ ?>
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    Data Berhasil Disimpan.
+                </div>
+                <?php }else if($this->session->flashdata('msg')=='e'){ ?>
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    Data Berhasil Diperbarui.
+                </div>
+                <?php } ?>
                 <a class="btn btn-success" data-toggle="modal" href="#tambah" style="margin-bottom:20px;">Tambah
                     Menu</a>
                 <div class="adv-table">
                     <table class="table table-striped" id="example">
                         <thead>
                             <tr>
-                                <th class="hidden">id</th>
                                 <th>No</th>
                                 <th>Nama Menu</th>
-                                <th>Halaman</th>
-                                <th>Aksi</th>
+                                <th class="text-center">Halaman</th>
+                                <th class="text-center">Tampil Pada</th>
+                                <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -84,14 +117,18 @@
 								$no=1;
                                 foreach($menu as $menu){?>
                             <tr>
-                                <td class="hidden"><span class="id_menu"><?= $menu->id?></span><span
-                                        class="hidden id_halaman"><?= $menu->id_halaman?></span></td>
-                                <td class="nomor"><?= $no?></td>
-                                <td class="nama"><?= $menu->nama_menu?></td>
-                                <td class="halaman"><?= $this->master->get_halaman($menu->id_halaman);?></td>
-                                <td>
-                                    <button class="btn btn-warning btn-xs" onclick="edit_menu($(this))">Edit</button>
-                                    <a class="btn btn-danger btn-xs" onclick="return hapus($(this))">Hapus</a>
+                                <td><?= $no?></td>
+                                <td><?= $menu->nama_menu?></td>
+                                <td class="text-center"><?= $this->master->get_halaman($menu->id_halaman);?></td>
+                                <td class="text-center"><?= ($menu->website==0) ? "Website Haji":"Website Travel";?>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-warning tombol-edit" 
+                                    data-kode="<?php echo $menu->id;?>" 
+                                    data-nama="<?php echo $menu->nama_menu;?>"
+                                    data-halaman="<?php echo $menu->id_halaman;?>"
+                                    data-website="<?php echo $menu->website;?>">Edit</button>
+                                    <a href="<?php echo base_url('/admin/menu/hapus/'.$menu->id)?>" class="btn btn-danger" onclick="return confirm('hapus data ?')">Hapus</a>
                                 </td>
                             </tr>
                             <?php $no++; }?>
@@ -102,76 +139,4 @@
         </section>
     </section>
 </section>
-<script type="text/javascript">
-$(document).ready(function() {
-    $('form[name=tambah]').submit(function(e) {
-        e.preventDefault();
-        $.ajax({
-            url: '<?= base_url("admin/menu/do_tambah_menu")?>',
-            data: $(this).serialize(),
-            type: 'post',
-            dataType: 'json',
-            success: function(data) {
-                var no = $('tr:last').find('.nomor').html();
-                no = parseInt(no) + 1;
-                var row = "<tr><td class='hidden'><span class='hidden id_halaman'>" + data
-                    .id_halaman + "</span><span class='hidden id_menu'>" + data.id +
-                    "</span></td><td class='nomor'>" + no + "</td><td class='nama'>" + data
-                    .nama_menu + "</td><td>" + data.halaman +
-                    "</td><td><button class='btn btn-warning btn-xs' onclick='edit_menu($(this))'> Edit </button> <a class='btn btn-danger btn-xs' onclick='return hapus($(this))'> Hapus </a></td></tr>";
-                $('table > tbody').append(row);
-                $('#input_nama_menu').val('');
-                $('#input_halaman').val(0);
-                $('#tambah').modal('hide');
-            }
-        })
-    });
-
-});
-var row;
-
-function hapus(x) {
-    var konfirm = confirm("Apakah Anda Ingin Menghapus");
-    if (konfirm) {
-        var id = x.parent().parent().find('.id_menu').html();
-        $.ajax({
-            url: '<?= base_url("admin/menu/hapus")?>',
-            dataType: 'html',
-            data: 'id=' + id,
-            type: 'post',
-            success: function() {
-                x.parent().parent().remove();
-            }
-        })
-    }
-    return false;
-}
-
-function edit_menu(x) {
-    row = x.parent().parent();
-    var nama_menu = row.find('.nama').html();
-    var halaman = row.find('.id_halaman').html();
-    var id_menu = row.find('.id_menu').html();
-    $('form[name=edit] > .form-group > input[name=nama_menu]').val(nama_menu);
-    $('form[name=edit] > .form-group > select').val(halaman);
-    $('form[name=edit] > .form-group > input[type=hidden]').val(id_menu);
-    $('#edit').modal('show');
-}
-
-function submit_edit() {
-    $.ajax({
-        url: '<?= base_url("admin/menu/edit_menu")?>',
-        dataType: 'json',
-        type: 'post',
-        data: $('form[name=edit]').serialize(),
-        success: function(data) {
-            row.find('.nama').html(data.nama_menu);
-            row.find('.halaman').html(data.halaman);
-        },
-        error: function(e) {
-            alert("Kesalahan");
-        }
-    });
-    $('#edit').modal('hide');
-}
-</script>
+<script src="<?php echo base_url('tpl_admin/customjs/menu.js');?>"></script>

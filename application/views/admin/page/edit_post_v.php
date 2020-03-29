@@ -17,30 +17,30 @@
                         <div class=" col-lg-6">
                             <label>Tanggal</label>
                             <input type="text" class="form-control default-date-picker" name="tanggal"
-                                value="<?= $this->master->get_date($data->tanggal)?>" readonly/>
+                                value="<?= $this->master->get_date($data->tanggal)?>" readonly />
                         </div>
-					</div>
-					<br>
+                    </div>
+                    <br>
                     <div class="row">
                         <div class="col-lg-6">
                             <label>Kategori</label>
                             <select class="form-control" name="kategori">
                                 <?php
 								foreach($kategori as $kat){?>
-                                <option value="<?= $kat->id_kategori?>"
+                                <option value="<?= $kat->id_kategori?>-<?= $kat->website?>"
                                     <?= ($data->id_kategori==$kat->id_kategori) ? "selected":""?>>
-                                    <?= $kat->nama_kategori?></option>
+                                    <?= $kat->nama_kategori?> - <?= ($kat->website==0) ? "Pada Website Haji":"Pada Website Travel";?></option>
                                 <?php }?>
                             </select>
-						</div>
-						<div class=" col-lg-6">
+                        </div>
+                        <div class=" col-lg-6">
                             <label>Gambar</label>
-                            <input type="file" class="form-control" name="gambar" accept="image/*"/>
+                            <input type="file" class="form-control" name="gambar" accept="image/*" />
                             <span class="text-muted">*kosongi bila tak ingin mengganti gambar</span>
                             <input type="hidden" name="gambar_lama" value="<?php echo $data->gambar; ?>">
                         </div>
-					</div>
-					<br>
+                    </div>
+                    <br>
                     <div class="form-group">
                         <label>Isi</label>
                         <textarea class="form-control ckeditor" name="isi" rows="8"><?= $data->isi?></textarea>
