@@ -3,7 +3,9 @@
     <div class="container">
         <h2><?php echo $row->judul?></h2>
         <p><?php echo $row->keterangan?></p>
+        <?php if($row->link!=''){ ?>
         <a href="<?php echo $row->link?>" class="thm-btn">Click Me</a>
+        <?php } ?>
     </div><!-- /.container -->
 </section><!-- /.banner-one -->
 <?php }?>
@@ -15,7 +17,6 @@
         </div><!-- /.block-title -->
     </div><!-- /.container -->
 </section><!-- /.features-one__title -->
-
 <section class="features-one__content">
     <div class="container">
         <div class="row">

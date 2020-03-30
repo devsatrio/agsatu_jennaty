@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Mar 2020 pada 03.40
+-- Waktu pembuatan: 30 Mar 2020 pada 05.49
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.3.13
 
@@ -58,19 +58,19 @@ CREATE TABLE `galeri` (
   `judul` varchar(30) NOT NULL,
   `keterangan` text NOT NULL,
   `gambar` varchar(200) NOT NULL,
-  `tampil` char(1) DEFAULT NULL
+  `tampil` char(1) DEFAULT NULL,
+  `website` enum('1','0') NOT NULL DEFAULT '0' COMMENT 'value 0 untuk website haji, 1 untuk website travel'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `galeri`
 --
 
-INSERT INTO `galeri` (`id_galeri`, `judul`, `keterangan`, `gambar`, `tampil`) VALUES
-(4, 'gambar 1', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit recusandae consequatur, autem, laboriosam quidem optio beatae veniam quas at, totam provident eligendi pariatur! Omnis doloremque magni impedit recusandae vel harum?\r\n', 'programmer.jpg', '0'),
-(6, 'gambar 2', 'dsf', 'intuit_problem.png', '0'),
-(7, 'gambar 3', 'asdf ', 'intuit_problem.png', '0'),
-(8, 'gambar 4', 'asdf ', 'sdf.jpg', '0'),
-(9, 'gambar 5', 'sadf sadf ', 'young-man-searching-for-jobs-vector.jpg', '0');
+INSERT INTO `galeri` (`id_galeri`, `judul`, `keterangan`, `gambar`, `tampil`, `website`) VALUES
+(12, 'gambar 1', 'lorem ipsum', '1.jpg', '0', '0'),
+(13, 'gambar 2', 'lorem ipsum', '2.jpg', '0', '0'),
+(14, 'gambar 3', 'lorem ipsum', '4.jpg', '0', '0'),
+(15, 'gambar 5', 'lorem ipsum', '5.jpg', '0', '1');
 
 -- --------------------------------------------------------
 
@@ -81,18 +81,20 @@ INSERT INTO `galeri` (`id_galeri`, `judul`, `keterangan`, `gambar`, `tampil`) VA
 CREATE TABLE `halaman` (
   `id_halaman` int(11) NOT NULL,
   `nama_halaman` varchar(30) NOT NULL,
-  `bentuk_halaman` tinyint(1) NOT NULL
+  `bentuk_halaman` tinyint(1) NOT NULL,
+  `website` enum('0','1') DEFAULT '0' COMMENT '0 untuk website haji, 1 untuk website travel'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `halaman`
 --
 
-INSERT INTO `halaman` (`id_halaman`, `nama_halaman`, `bentuk_halaman`) VALUES
-(1, 'paket haji', 2),
-(2, 'paket umroh', 2),
-(3, 'tentang kami', 1),
-(4, 'paket haji spesial', 1);
+INSERT INTO `halaman` (`id_halaman`, `nama_halaman`, `bentuk_halaman`, `website`) VALUES
+(1, 'paket haji', 2, '0'),
+(2, 'paket umroh', 2, '0'),
+(3, 'tentang kami', 1, '0'),
+(4, 'paket haji spesial', 1, '0'),
+(6, 'profil travel', 1, '1');
 
 -- --------------------------------------------------------
 
@@ -102,16 +104,18 @@ INSERT INTO `halaman` (`id_halaman`, `nama_halaman`, `bentuk_halaman`) VALUES
 
 CREATE TABLE `kategori` (
   `id_kategori` int(11) NOT NULL,
-  `nama_kategori` varchar(30) NOT NULL
+  `nama_kategori` varchar(30) NOT NULL,
+  `website` enum('0','1') DEFAULT '0' COMMENT '0 untuk website haji, 1 untuk website travel'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `kategori`
 --
 
-INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
-(11, 'berita'),
-(12, 'pengumuman');
+INSERT INTO `kategori` (`id_kategori`, `nama_kategori`, `website`) VALUES
+(16, 'berita', '0'),
+(17, 'pengumuman', '0'),
+(18, 'destinasi rekomendasi', '1');
 
 -- --------------------------------------------------------
 
@@ -125,17 +129,18 @@ CREATE TABLE `majemuk` (
   `tanggal` date NOT NULL,
   `isi` text NOT NULL,
   `id_halaman` int(11) NOT NULL,
-  `gambar` varchar(100) NOT NULL
+  `gambar` varchar(100) NOT NULL,
+  `website` enum('0','1') DEFAULT '0' COMMENT '0 untuk website haji, 1 untuk website travel'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `majemuk`
 --
 
-INSERT INTO `majemuk` (`id_majemuk`, `judul`, `tanggal`, `isi`, `id_halaman`, `gambar`) VALUES
-(1, 'halo', '2020-03-03', '<div>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Incidunt,&nbsp;quae&nbsp;illum&nbsp;libero&nbsp;quos&nbsp;at,&nbsp;vero&nbsp;provident&nbsp;architecto&nbsp;obcaecati&nbsp;amet&nbsp;quam&nbsp;enim&nbsp;magni&nbsp;modi&nbsp;eum.&nbsp;A&nbsp;ut&nbsp;accusamus&nbsp;beatae&nbsp;esse&nbsp;consectetur? sakdfjks aklsdfjklsadjfklasj aksdjfklsajdfklsa lksjadfklsajdfkl klsjadfklsadf</div>', 2, 'c5b8f2fb9d1cee516d5e3d1dd56ab5af.jpg'),
-(2, 'halo 2', '2020-02-28', '<p>&nbsp;</p>\r\n<div>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Incidunt,&nbsp;quae&nbsp;illum&nbsp;libero&nbsp;quos&nbsp;at,&nbsp;vero&nbsp;provident&nbsp;architecto&nbsp;obcaecati&nbsp;amet&nbsp;quam&nbsp;enim&nbsp;magni&nbsp;modi&nbsp;eum.&nbsp;A&nbsp;ut&nbsp;accusamus&nbsp;beatae&nbsp;esse&nbsp;consectetur?</div>', 2, 'Capture.PNG'),
-(3, 'asdfa s ', '2020-03-04', '<p>asdf asdf sdaf saf asdf</p>', 1, '74-748606_city-blur.jpg');
+INSERT INTO `majemuk` (`id_majemuk`, `judul`, `tanggal`, `isi`, `id_halaman`, `gambar`, `website`) VALUES
+(1, 'halo', '2020-03-03', '<div>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Incidunt,&nbsp;quae&nbsp;illum&nbsp;libero&nbsp;quos&nbsp;at,&nbsp;vero&nbsp;provident&nbsp;architecto&nbsp;obcaecati&nbsp;amet&nbsp;quam&nbsp;enim&nbsp;magni&nbsp;modi&nbsp;eum.&nbsp;A&nbsp;ut&nbsp;accusamus&nbsp;beatae&nbsp;esse&nbsp;consectetur? sakdfjks aklsdfjklsadjfklasj aksdjfklsajdfklsa lksjadfklsajdfkl klsjadfklsadf</div>', 2, 'c5b8f2fb9d1cee516d5e3d1dd56ab5af.jpg', '0'),
+(2, 'halo 2', '2020-02-28', '<p>&nbsp;</p>\r\n<div>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Incidunt,&nbsp;quae&nbsp;illum&nbsp;libero&nbsp;quos&nbsp;at,&nbsp;vero&nbsp;provident&nbsp;architecto&nbsp;obcaecati&nbsp;amet&nbsp;quam&nbsp;enim&nbsp;magni&nbsp;modi&nbsp;eum.&nbsp;A&nbsp;ut&nbsp;accusamus&nbsp;beatae&nbsp;esse&nbsp;consectetur?</div>', 2, 'Capture.PNG', '0'),
+(3, 'asdfa s ', '2020-03-04', '<p>asdf asdf sdaf saf asdf</p>', 1, '74-748606_city-blur.jpg', '0');
 
 -- --------------------------------------------------------
 
@@ -146,17 +151,19 @@ INSERT INTO `majemuk` (`id_majemuk`, `judul`, `tanggal`, `isi`, `id_halaman`, `g
 CREATE TABLE `menu` (
   `id` int(11) NOT NULL,
   `nama_menu` varchar(30) NOT NULL,
-  `id_halaman` int(11) NOT NULL
+  `id_halaman` int(11) NOT NULL,
+  `website` enum('0','1') DEFAULT '0' COMMENT '0 untuk website haji, 1 untuk website travel'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `menu`
 --
 
-INSERT INTO `menu` (`id`, `nama_menu`, `id_halaman`) VALUES
-(1, 'tentang kami', 3),
-(2, 'paket umroh', 2),
-(3, 'paket haji', 0);
+INSERT INTO `menu` (`id`, `nama_menu`, `id_halaman`, `website`) VALUES
+(1, 'tentang kami', 3, '0'),
+(2, 'paket umroh', 2, '0'),
+(3, 'paket haji', 0, '0'),
+(8, 'tentang kami', 0, '1');
 
 -- --------------------------------------------------------
 
@@ -172,19 +179,17 @@ CREATE TABLE `post` (
   `isi` text NOT NULL,
   `gambar` text NOT NULL,
   `tampil` tinyint(1) NOT NULL,
-  `tempat` varchar(30) NOT NULL
+  `website` enum('0','1') DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `post`
 --
 
-INSERT INTO `post` (`id_post`, `id_kategori`, `judul`, `tanggal`, `isi`, `gambar`, `tampil`, `tempat`) VALUES
-(1, 12, 'coba artikel', '2020-03-21', '<p>sadf sadf asdf asdf safd asdjf sdfkjsdklf dsafj kfjsklda flksdajfklsadf lkdsajf klsadjf sdlkkfjsdakf skafjkslaf skdafjklsdfjkldsafj klsajdfklsdjfklsdjfklsa fklsadjfklsajfklsadjf klsjfklsdjfklsjdf klsdjkf </p>', '', 0, ''),
-(2, 11, 'asdfsaf', '2020-03-21', '<p>cob coba</p>', 'sss.PNG', 0, ''),
-(3, 12, 'sdfsadf', '2020-03-21', '<p>sadf sasdf sa</p>', 'aot_4.png', 0, ''),
-(4, 12, 'dsfasd', '2020-03-24', '<p>sadf asd fas sadfsdf asdf&nbsp;</p>', 'sdf.jpg', 0, ''),
-(5, 12, 'dsaf ', '2020-03-24', '<p>asdfsad fsad fsa&nbsp;</p>', 'how-to-build-a-mobile-app-from-the-ground-up.jpg', 0, '');
+INSERT INTO `post` (`id_post`, `id_kategori`, `judul`, `tanggal`, `isi`, `gambar`, `tampil`, `website`) VALUES
+(8, 16, 'artikel 1', '2020-03-30', '<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae sed, accusamus nemo quasi saepe asperiores expedita ut voluptatibus cum ipsum, amet assumenda. Similique, cum reiciendis expedita eum harum provident iste.&nbsp;Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae sed, accusamus nemo quasi saepe asperiores expedita ut voluptatibus cum ipsum, amet assumenda. Similique, cum reiciendis expedita eum harum provident iste.</p>', 'blog1.png', 0, '0'),
+(9, 17, 'artikel 2', '2020-03-30', '<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae sed, accusamus nemo quasi saepe asperiores expedita ut voluptatibus cum ipsum, amet assumenda. Similique, cum reiciendis expedita eum harum provident iste.&nbsp;Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae sed, accusamus nemo quasi saepe asperiores expedita ut voluptatibus cum ipsum, amet assumenda. Similique, cum reiciendis expedita eum harum provident iste.</p>', 'blog2.png', 0, '0'),
+(10, 18, 'artikel 1 travel', '2020-03-30', '<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae sed, accusamus nemo quasi saepe asperiores expedita ut voluptatibus cum ipsum, amet assumenda. Similique, cum reiciendis expedita eum harum provident iste.&nbsp;Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae sed, accusamus nemo quasi saepe asperiores expedita ut voluptatibus cum ipsum, amet assumenda. Similique, cum reiciendis expedita eum harum provident iste.</p>', 'blog3.png', 0, '1');
 
 -- --------------------------------------------------------
 
@@ -197,16 +202,17 @@ CREATE TABLE `slider` (
   `url_gambar` varchar(100) NOT NULL,
   `keterangan` text NOT NULL,
   `link` text DEFAULT NULL,
-  `judul` text DEFAULT NULL
+  `judul` text DEFAULT NULL,
+  `website` enum('0','1') DEFAULT '0' COMMENT '0 untuk website haji, 1 untuk website travel'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `slider`
 --
 
-INSERT INTO `slider` (`id`, `url_gambar`, `keterangan`, `link`, `judul`) VALUES
-(2, 'aot.jpg', 'asdfsaf', 'asdf', 'asdf'),
-(4, 'building-apps-app-builder.jpg', 'lorem ipsum dolor', 'http://localhost/phpmyadmin', 'slider satu');
+INSERT INTO `slider` (`id`, `url_gambar`, `keterangan`, `link`, `judul`, `website`) VALUES
+(6, 'aot_10.png', 'kasdf asdfj askdf', '', 'coba slider', '1'),
+(7, 'building-apps-app-builder.jpg', 'Lorem ipsum dolor sit amet consectetur, sit amet consectetur', '', 'Haji jadi makin berkah', '0');
 
 -- --------------------------------------------------------
 
@@ -218,16 +224,18 @@ CREATE TABLE `submenu` (
   `id_submenu` int(11) NOT NULL,
   `id_menu` int(11) NOT NULL,
   `nama_submenu` varchar(30) NOT NULL,
-  `id_halaman` int(11) NOT NULL
+  `id_halaman` int(11) NOT NULL,
+  `website` enum('0','1') DEFAULT '0' COMMENT '0 untuk website haji, 1 untuk website travel'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `submenu`
 --
 
-INSERT INTO `submenu` (`id_submenu`, `id_menu`, `nama_submenu`, `id_halaman`) VALUES
-(1, 3, 'list paket haji', 1),
-(2, 3, 'paket haji spesial', 4);
+INSERT INTO `submenu` (`id_submenu`, `id_menu`, `nama_submenu`, `id_halaman`, `website`) VALUES
+(1, 3, 'list paket haji', 1, '0'),
+(2, 3, 'paket haji spesial', 4, '0'),
+(6, 8, 'tentang kami', 6, '1');
 
 -- --------------------------------------------------------
 
@@ -240,18 +248,21 @@ CREATE TABLE `tunggal` (
   `tanggal` date NOT NULL,
   `isi` text NOT NULL,
   `gambar` text NOT NULL,
-  `id_halaman` int(11) NOT NULL
+  `id_halaman` int(11) NOT NULL,
+  `website` enum('0','1') DEFAULT NULL COMMENT '0 untuk website haji, 1 untuk website travel'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `tunggal`
 --
 
-INSERT INTO `tunggal` (`id_tunggal`, `tanggal`, `isi`, `gambar`, `id_halaman`) VALUES
-(1, '2020-03-21', '', '', 1),
-(2, '2020-03-21', '', '', 2),
-(3, '2020-03-21', '<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../../../tpl_admin/tinymce/plugins/image/../../../../gambar/galeri/programmer.jpg\" alt=\"\" width=\"535\" height=\"535\" /></p>\r\n<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum qui nesciunt atque dicta deserunt debitis consectetur doloribus! Dolor mollitia, autem molestias accusamus nemo velit repudiandae tenetur nihil quo quasi! sdf sadfsad sdafs afsdf&nbsp;</p>', '', 3),
-(4, '2020-03-21', '<div><img src=\"../../../tpl_admin/tinymce/plugins/image/../../../../gambar/slider/125.jpg\" alt=\"\" width=\"2088\" height=\"491\" /></div>\r\n<div>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Incidunt,&nbsp;quae&nbsp;illum&nbsp;libero&nbsp;quos&nbsp;at,&nbsp;vero&nbsp;provident&nbsp;architecto&nbsp;obcaecati&nbsp;amet&nbsp;quam&nbsp;enim&nbsp;magni&nbsp;modi&nbsp;eum.&nbsp;A&nbsp;ut&nbsp;accusamus&nbsp;beatae&nbsp;esse&nbsp;consectetur?</div>\r\n<div>\r\n<div>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Incidunt,&nbsp;quae&nbsp;illum&nbsp;libero&nbsp;quos&nbsp;at,&nbsp;vero&nbsp;provident&nbsp;architecto&nbsp;obcaecati&nbsp;amet&nbsp;quam&nbsp;enim&nbsp;magni&nbsp;modi&nbsp;eum.&nbsp;A&nbsp;ut&nbsp;accusamus&nbsp;beatae&nbsp;esse&nbsp;consectetur?</div>\r\n<div>\r\n<div>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Incidunt,&nbsp;quae&nbsp;illum&nbsp;libero&nbsp;quos&nbsp;at,&nbsp;vero&nbsp;provident&nbsp;architecto&nbsp;obcaecati&nbsp;amet&nbsp;quam&nbsp;enim&nbsp;magni&nbsp;modi&nbsp;eum.&nbsp;A&nbsp;ut&nbsp;accusamus&nbsp;beatae&nbsp;esse&nbsp;consectetur?</div>\r\n<div>\r\n<div>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Incidunt,&nbsp;quae&nbsp;illum&nbsp;libero&nbsp;quos&nbsp;at,&nbsp;vero&nbsp;provident&nbsp;architecto&nbsp;obcaecati&nbsp;amet&nbsp;quam&nbsp;enim&nbsp;magni&nbsp;modi&nbsp;eum.&nbsp;A&nbsp;ut&nbsp;accusamus&nbsp;beatae&nbsp;esse&nbsp;consectetur?</div>\r\n</div>\r\n</div>\r\n</div>', '', 4);
+INSERT INTO `tunggal` (`id_tunggal`, `tanggal`, `isi`, `gambar`, `id_halaman`, `website`) VALUES
+(1, '2020-03-21', '', '', 1, NULL),
+(2, '2020-03-21', '', '', 2, NULL),
+(3, '2020-03-21', '<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../../../tpl_admin/tinymce/plugins/image/../../../../gambar/slider/aot_10.png\" alt=\"\" width=\"818\" height=\"413\" /></p>\r\n<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt fugit optio sunt, iure ratione sint ut nemo harum voluptatum in velit quod officiis tenetur consequuntur nobis illo architecto asperiores assumenda?&nbsp;Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt fugit optio sunt, iure ratione sint ut nemo harum voluptatum in velit quod officiis tenetur consequuntur nobis illo architecto asperiores assumenda?&nbsp;Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt fugit optio sunt, iure ratione sint ut nemo harum voluptatum in velit quod officiis tenetur consequuntur nobis illo architecto asperiores assumenda?</p>\r\n<p>&nbsp;</p>\r\n<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt fugit optio sunt, iure ratione sint ut nemo harum voluptatum in velit quod officiis tenetur consequuntur nobis illo architecto asperiores assumenda?&nbsp;Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt fugit optio sunt, iure ratione sint ut nemo harum voluptatum in velit quod officiis tenetur consequuntur nobis illo architecto asperiores assumenda?</p>', '', 3, NULL),
+(4, '2020-03-21', '<div><img src=\"../../../tpl_admin/tinymce/plugins/image/../../../../gambar/slider/125.jpg\" alt=\"\" width=\"2088\" height=\"491\" /></div>\r\n<div>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Incidunt,&nbsp;quae&nbsp;illum&nbsp;libero&nbsp;quos&nbsp;at,&nbsp;vero&nbsp;provident&nbsp;architecto&nbsp;obcaecati&nbsp;amet&nbsp;quam&nbsp;enim&nbsp;magni&nbsp;modi&nbsp;eum.&nbsp;A&nbsp;ut&nbsp;accusamus&nbsp;beatae&nbsp;esse&nbsp;consectetur?</div>\r\n<div>\r\n<div>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Incidunt,&nbsp;quae&nbsp;illum&nbsp;libero&nbsp;quos&nbsp;at,&nbsp;vero&nbsp;provident&nbsp;architecto&nbsp;obcaecati&nbsp;amet&nbsp;quam&nbsp;enim&nbsp;magni&nbsp;modi&nbsp;eum.&nbsp;A&nbsp;ut&nbsp;accusamus&nbsp;beatae&nbsp;esse&nbsp;consectetur?</div>\r\n<div>\r\n<div>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Incidunt,&nbsp;quae&nbsp;illum&nbsp;libero&nbsp;quos&nbsp;at,&nbsp;vero&nbsp;provident&nbsp;architecto&nbsp;obcaecati&nbsp;amet&nbsp;quam&nbsp;enim&nbsp;magni&nbsp;modi&nbsp;eum.&nbsp;A&nbsp;ut&nbsp;accusamus&nbsp;beatae&nbsp;esse&nbsp;consectetur?</div>\r\n<div>\r\n<div>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Incidunt,&nbsp;quae&nbsp;illum&nbsp;libero&nbsp;quos&nbsp;at,&nbsp;vero&nbsp;provident&nbsp;architecto&nbsp;obcaecati&nbsp;amet&nbsp;quam&nbsp;enim&nbsp;magni&nbsp;modi&nbsp;eum.&nbsp;A&nbsp;ut&nbsp;accusamus&nbsp;beatae&nbsp;esse&nbsp;consectetur?</div>\r\n</div>\r\n</div>\r\n</div>', '', 4, NULL),
+(5, '2020-03-27', '', '', 5, NULL),
+(6, '2020-03-30', '', '', 6, NULL);
 
 --
 -- Indexes for dumped tables
@@ -331,19 +342,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT untuk tabel `galeri`
 --
 ALTER TABLE `galeri`
-  MODIFY `id_galeri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_galeri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `halaman`
 --
 ALTER TABLE `halaman`
-  MODIFY `id_halaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_halaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `majemuk`
@@ -355,31 +366,31 @@ ALTER TABLE `majemuk`
 -- AUTO_INCREMENT untuk tabel `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `post`
 --
 ALTER TABLE `post`
-  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `slider`
 --
 ALTER TABLE `slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `submenu`
 --
 ALTER TABLE `submenu`
-  MODIFY `id_submenu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_submenu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `tunggal`
 --
 ALTER TABLE `tunggal`
-  MODIFY `id_tunggal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_tunggal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

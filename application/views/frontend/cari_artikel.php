@@ -7,7 +7,6 @@
         </div>
         <br>
         <div class="row">
-
             <div class="col-lg-8">
                 <?php foreach($artikel as $row){ ?>
                 <div class="blog-two__single blog-one__single">
