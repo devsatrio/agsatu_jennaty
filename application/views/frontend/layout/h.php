@@ -41,7 +41,7 @@
 
 <body>
     <div class="preloader">
-        <img src="assets/images/loader.png" class="preloader__image" alt="">
+        <img src="<?php echo base_url('assets/source/images/loader.png')?>" class="preloader__image" alt="">
     </div><!-- /.preloader -->
     <div class="page-wrapper">
         <div class="site-header__header-one-wrap">
